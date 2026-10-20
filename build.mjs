@@ -1,0 +1,1 @@
+import fs from 'node:fs';fs.mkdirSync('dist',{recursive:true});for(const f of ['index.html','style.css','app.js','data.js','logic.js'])fs.copyFileSync(f,'dist/'+f);console.log('Static build ready: dist');

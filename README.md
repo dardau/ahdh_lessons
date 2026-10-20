@@ -1,0 +1,42 @@
+# Lock in · English studio
+
+Personal seven-day General English revision app. Buildless vanilla JavaScript, no accounts, no API keys.
+
+## Run
+
+Requires Node 20+.
+
+```sh
+npm run dev
+# http://127.0.0.1:4173
+npm test
+npm run build
+```
+
+Deploy `dist/` on any static host. Relative asset paths support GitHub Pages project URLs.
+
+## Features
+
+- 14 grammar topics across seven open days, Russian explanations and 56 checked exercises.
+- Baseline (14 items), final check (28 items), error review, practice and day completion.
+- 10/25/45-minute timer with pause, reload recovery and focus view.
+- Seven listening prompts using browser English text-to-speech, optional transcripts and explicit self-check.
+- Personal writing prompts with local autosave. No fake AI grading: free writing and listening are self-assessed.
+- Reading room with seven original learning texts, glossary, reflections, private paste-in notebook.
+- Official publisher sample of Zero to One linked externally. No copyrighted book chapters bundled.
+- Browser-local storage and validated JSON backup/import. No server-side collection of answers.
+- Seven-day countdown starts on user action, never locks the learner out.
+
+## Scope
+
+A structured revision sprint, not an accredited course, CEFR evaluation or guarantee of IELTS 7.
+Baseline and final checks use different items from the practice bank; scores are not psychometrically comparable.
+Learning examples use ordinary interests only; personal chats and health information are not shipped.
+Font loading uses Google Fonts with local fallbacks; book preview is external.
+English voice availability depends on the browser and OS. The local dev server is loopback-only.
+
+## GitHub Pages
+
+The workflow checks and builds the application. To enable hosting in this repository, select
+Settings → Pages → Source: GitHub Actions, then run the Pages workflow. GitHub account/plan
+restrictions may apply. No account permissions or repository visibility are changed by this app.
