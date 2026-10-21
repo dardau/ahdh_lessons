@@ -19,7 +19,8 @@ Deploy `dist/` on any static host. Relative asset paths support GitHub Pages pro
 
 ## Features
 
-- 14 grammar topics across seven open days, Russian explanations and 56 checked exercises.
+- 14 grammar chapters across seven open days: meaning, sentence forms, contrasts, worked examples and pitfalls.
+- 168 checked exercises: 56 multiple-choice and 112 constrained typed answers, split into four-question rounds. Case, final punctuation and curly apostrophes are normalized; listed alternative forms are accepted.
 - Baseline (14 items), final check (28 items), error review, practice and day completion.
 - 10/25/45-minute timer with pause, reload recovery and focus view.
 - Seven listening prompts using browser English text-to-speech, optional transcripts and explicit self-check.
@@ -32,6 +33,7 @@ Deploy `dist/` on any static host. Relative asset paths support GitHub Pages pro
 ## Scope
 
 A structured revision sprint, not an accredited course, CEFR evaluation or guarantee of IELTS 7.
+The expanded bank preserves existing question IDs and answers. Full-day completion now includes the extra exercises; previously completed days may show remaining work. Typed practice checks a finite answer bank, not arbitrary semantic equivalence. Edit curriculum.js for teaching notes and productive drills, then regenerate the bundle.
 Baseline and final checks use different items from the practice bank; scores are not psychometrically comparable.
 Learning examples use ordinary interests only; personal chats and health information are not shipped.
 Font loading uses Google Fonts with local fallbacks; book preview is external.

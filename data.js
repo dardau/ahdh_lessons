@@ -1,3 +1,4 @@
+import {chapters} from './curriculum.js';
 export const topics = [
   {
     "id": 0,
@@ -756,6 +757,13 @@ export const topics = [
     ]
   }
 ];
+for (const topic of topics) {
+  topic.chapter = chapters[topic.id];
+  topic.questions.push(...topic.chapter.drills.map(([prompt,answers,why],i)=>{
+    const [answer,...accept]=answers.split('|');
+    return {id:topic.id+'-'+(i+4),type:'text',prompt,answer,accept,why};
+  }));
+}
 export const days = [
 {title:"Начни с себя",label:"FOUNDATIONS",topics:[0,1],prompt:"Write 4 sentences: who you are, what you usually do, what you are doing today, and one question.",listen:"I am a university student. I usually make videos for my studio. Today I am learning English. My classmates are kind.",question:"What is the speaker doing today?",answer:"Learning English"},
 {title:"Расскажи историю",label:"YOUR EVERYDAY LIFE",topics:[2,3],prompt:"Tell us about yesterday in 4 sentences. Include: I was … when … . What did you enjoy?",listen:"Yesterday I was editing a video when my phone rang. A client wanted to discuss a new idea. I knew what to do. We booked a call.",question:"What interrupted the editing?",answer:"A phone call"},

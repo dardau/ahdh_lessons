@@ -1,5 +1,6 @@
-export function normalize(s){return s.toLowerCase().trim().replace(/[.!?]+$/,'').replace(/\s+/g,' ')}
-export function score(answers,questions){return questions.filter(q=>answers[q.id]===q.answer).length}
+export function normalize(s){return String(s??'').toLowerCase().trim().replace(/[’‘]/g,"'").replace(/[.!?]+$/,'').replace(/\s+/g,' ')}
+export function isCorrect(answer,q){return typeof answer==='string'&&[q.answer,...(q.accept||[])].some(a=>normalize(a)===normalize(answer))}
+export function score(answers,questions){return questions.filter(q=>isCorrect(answers[q.id],q)).length}
 export function remainingSeconds(end,now=Date.now()){return Math.max(0,Math.ceil((end-now)/1000))}
 export function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
 export function deadlineDays(start,now=Date.now()){return Math.max(0,Math.ceil((start+7*86400000-now)/86400000))}
@@ -13,7 +14,7 @@ export function sanitizeState(raw){
    const map=raw[key];if(map===undefined)continue;
    if(!map||typeof map!=='object'||Array.isArray(map))throw new Error('Invalid map');
    for(const [id,value] of Object.entries(map)){
-     if(!/^(?:[0-9]|1[0-3])(?:-[0-3])?$/.test(id))continue;
+     if(!/^(?:[0-9]|1[0-3])(?:-(?:[0-9]|1[01]))?$/.test(id))continue;
      if(['answers','writing'].includes(key)){if(typeof value==='string')s[key][id]=value.slice(0,50000)}
      else if(typeof value==='boolean')s[key][id]=value;
    }

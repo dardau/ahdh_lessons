@@ -1,16 +1,32 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {topics,days,readings} from './data.js';
-import {score,remainingSeconds,deadlineDays,sanitizeState} from './logic.js';
+import {isCorrect,score,remainingSeconds,deadlineDays,sanitizeState} from './logic.js';
 test('all fourteen topics occur exactly once in the seven-day curriculum',()=>{
  assert.equal(topics.length,14);assert.equal(readings.length,7);
  assert.deepEqual(days.flatMap(d=>d.topics).sort((a,b)=>a-b),topics.map(t=>t.id));
- for(const t of topics){assert.equal(t.questions.length,4);for(const q of t.questions){assert.equal(new Set(q.options).size,3);assert.ok(q.options.includes(q.answer));assert.ok(q.why.length>10)}}
- assert.equal(new Set(topics.flatMap(t=>t.questions.map(q=>q.id))).size,56);
+ for(const t of topics){assert.equal(t.questions.length,12);assert.ok(t.chapter.meaning.length>100);assert.equal(t.chapter.forms.length,4);assert.equal(t.chapter.examples.length,2);for(const q of t.questions){if(q.type!=='text'){assert.equal(new Set(q.options).size,3);assert.ok(q.options.includes(q.answer));}assert.ok(q.why.length>10)}}
+ assert.equal(new Set(topics.flatMap(t=>t.questions.map(q=>q.id))).size,168);
 });
 test('scoring distinguishes missing and incorrect answers',()=>{
  const qs=topics[0].questions;assert.equal(score({},qs),0);
  assert.equal(score({[qs[0].id]:qs[0].answer,[qs[1].id]:'wrong'},qs),1);
+});
+test('typed answers normalize case, punctuation and curly apostrophes without accepting wrong grammar',()=>{
+ const q=topics[1].questions[7];
+ assert.ok(isCorrect("  DOESN'T   WORK. ",q));
+ assert.ok(isCorrect("doesn’t work",q));
+ assert.ok(isCorrect("does not work",q));
+ assert.equal(isCorrect("doesn't works",q),false);
+ assert.equal(isCorrect(undefined,q),false);
+ assert.equal(isCorrect('',q),false);
+});
+test('all canonical answers and allowed variants score, including newly added IDs after import',()=>{
+ const answers=Object.fromEntries(topics.flatMap(t=>t.questions.map(q=>[q.id,q.answer])));
+ const restored=sanitizeState({answers}).answers;
+ assert.equal(score(restored,topics.flatMap(t=>t.questions)),168);
+ for(const q of topics.flatMap(t=>t.questions))for(const variant of q.accept||[])assert.ok(isCorrect(variant,q));
+ assert.equal(score(answers,topics.flatMap(t=>t.questions.slice(2,4))),28);
 });
 test('timer uses elapsed wall time and cannot go negative',()=>{
  assert.equal(remainingSeconds(26000,1000),25);
