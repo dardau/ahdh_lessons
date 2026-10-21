@@ -4,6 +4,8 @@ Personal seven-day General English revision app. Buildless vanilla JavaScript, n
 
 ## Run
 
+Open `index.html` directly in a browser — the committed classic-script bundle supports `file://` without a local server. After editing source modules, run `npm run build` to regenerate `app.bundle.js`. Browser storage for local files depends on the browser; use JSON export to back up progress. Local-file progress and hosted-site progress are separate.
+
 Requires Node 20+.
 
 ```sh
